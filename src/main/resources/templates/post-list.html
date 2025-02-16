@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+<div class="container mx-auto py-8">
+    <!-- Page Title -->
+    <h1 class="text-3xl font-bold mb-6 text-center">Posts</h1>
+
+    <!-- Create New Post Button -->
+    <div class="mb-4 text-right">
+        <a href="/posts/create"
+           class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow">
+            Create New Post
+        </a>
+    </div>
+
+    <!-- Posts Table -->
+    <div class="overflow-x-auto bg-white shadow rounded-lg">
+        <table class="table-auto w-full border-collapse">
+            <thead class="bg-gray-200">
+            <tr>
+                <th class="px-4 py-2 border">ID</th>
+                <th class="px-4 py-2 border">Title</th>
+                <th class="px-4 py-2 border">Description</th>
+                <th class="px-4 py-2 border">Content</th>
+                <th class="px-4 py-2 border">Author</th>
+                <th class="px-4 py-2 border">Views</th>
+                <th class="px-4 py-2 border">Published</th>
+                <th class="px-4 py-2 border">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="post : ${posts}" class="hover:bg-gray-50">
+                <td class="px-4 py-2 border" th:text="${post.id}"></td>
+                <td class="px-4 py-2 border" th:text="${post.title}"></td>
+                <td class="px-4 py-2 border" th:text="${post.description}"></td>
+                <td class="px-4 py-2 border" th:text="${post.content}"></td>
+                <td class="px-4 py-2 border" th:text="${post.author}"></td>
+                <td class="px-4 py-2 border" th:text="${post.views}"></td>
+                <td class="px-4 py-2 border" th:text="${post.published ? 'Yes' : 'No'}"></td>
+                <td class="px-4 py-2 border text-center">
+                    <a th:href="'/posts/edit/' + ${post.id}"
+                       class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
+                        Edit
+                    </a>
+                    <button
+                            onclick="confirmDelete(${post.id})"
+                            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded ml-2">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div id="deleteModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg shadow-lg w-1/3">
+        <div class="p-4 border-b">
+            <h2 class="text-lg font-semibold">Confirm Delete</h2>
+        </div>
+        <div class="p-4">
+            <p>Are you sure you want to delete this post?</p>
+        </div>
+        <div class="p-4 border-t flex justify-end space-x-4">
+            <button onclick="closeModal()"
+                    class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+                Cancel
+            </button>
+            <button id="confirmDeleteButton"
+                    class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
+                Delete
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    function confirmDelete(postId) {
+        const modal = document.getElementById('deleteModal');
+        modal.classList.remove('hidden');
+        const confirmButton = document.getElementById('confirmDeleteButton');
+        confirmButton.onclick = function () {
+            window.location.href = `/posts/delete/${postId}`;
+        };
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('deleteModal');
+        modal.classList.add('hidden');
+    }
+</script>
+</body>
+</html>
