@@ -89,9 +89,218 @@ user database sendiri pada application.properties
 - replace with single class import
 
 
+kenapa kalau saya debug
+saya tempatkan breakpoint di restclient (resttemplate) dan di restapi
+di restapinya breakpointnya tidak ke trigger ya
+tetapi jika di resttemplate tidak saya pasang breakpoint
+maka di rest api nya akan berhenti atau ke trigger breakpointnya
+
+ini kenapa post nya datanya null ya,
+Post post = restTemplate.getForObject(API_BASE_URL + "/" + id, Post.class);
+
+dari sini, public class PostControllerView
+@GetMapping("/edit/{id}")
+public String showEditForm(@PathVariable Long id, Model model) {
+    Post post = restTemplate.getForObject(API_BASE_URL + "/" + id, Post.class);
+    model.addAttribute("post", post);
+    return "post-form";
+}
+
+padahal waktu saya debug di rest api nya datanya ada,
+dari sini, public class PostPresenter
+@GetMapping("/{id}")
+public Map<String, Object> getPostById(@PathVariable Long id) {
+    Map<String, Object> response = new HashMap<>();
+    response.put("status", "success");
+    response.put("data", postService.findPostById(id));
+    return response;
+}
 
 
+maksud saya ApiResponseHelper nya digunakan di class PostControllerView,
+bisa edit ini tidak agar bisa menerima List<Post> atau Post
+
+package com.spring.finshot.utils;
+
+import java.util.List;
+
+public class ApiResponseHelper<T> {
+    private String status;
+    private List<T> data;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<T> getData() {
+        return data;
+    }
+
+    public void setData(List<T> data) {
+        this.data = data;
+    }
+}
+
+kenapa sebelumnya ini tidak perlu ObjectMapper ya untuk yang List<Post>,
+// class PostControllerView
+ApiResponseHelper<Post> response = restTemplate.getForObject(API_BASE_URL, ApiResponseHelper.class);
+
+// class PostPresenter
+@GetMapping
+public Map<String, Object> getAllPosts() {
+    Map<String, Object> response = new HashMap<>();
+    response.put("status", "success");
+    response.put("data", postService.findAllActivePosts());
+    return response;
+}
+
+// class PostServiceImpl implements PostService
+@Override
+public List<Post> findAllActivePosts() {
+    return postRepository.findAllActivePosts();
+}
+
+// class PostControllerView
+@GetMapping
+public String listPosts(Model model) {
+    ApiResponseHelper<Post> response = restTemplate.getForObject(API_BASE_URL, ApiResponseHelper.class);
+    model.addAttribute("posts", response.getData());
+    return "post-list";
+}
 
 
+// class ApiResponseHelper<T>
+import java.util.List;
+public class ApiResponseHelper<T> {
+    private String status;
+    private List<T> data;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<T> getData() {
+        return data;
+    }
+
+    public void setData(List<T> data) {
+        this.data = data;
+    }
+}
 
 
+bisa gak untuk yang Post tidak pakai ObjectMapper juga
+// class PostControllerView
+@GetMapping("/edit/{id}")
+public String showEditForm(@PathVariable Long id, Model model) {
+    Post post = restTemplate.getForObject(API_BASE_URL + "/" + id, Post.class); // yang ini
+    model.addAttribute("post", post);
+    return "post-form";
+}
+
+
+baik tolong ubah class ApiResponseHelper agar bisa memproses getForObject dari List<Post> ataupun single object Post
+
+// ubah ini ya, agar bisa memproses List<Post> ataupun single object Post
+
+import java.util.List;
+public class ApiResponseHelper<T> {
+    private String status;
+    private List<T> data;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<T> getData() {
+        return data;
+    }
+
+    public void setData(List<T> data) {
+        this.data = data;
+    }
+}
+
+// pada class PostControllerView
+@GetMapping
+public String listPosts(Model model) {
+    ApiResponseHelper<Post> response = restTemplate.getForObject(API_BASE_URL, ApiResponseHelper.class);
+    model.addAttribute("posts", response.getData());
+    return "post-list";
+}
+
+@GetMapping("/edit/{id}")
+public String showEditForm(@PathVariable Long id, Model model) {
+    Post post = restTemplate.getForObject(API_BASE_URL + "/" + id, Post.class); // yang ini ya
+    model.addAttribute("post", post);
+    return "post-form";
+}
+
+kalau yang singgle Post kenapa error di post-form.html nya ya,
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Post Form</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+<h1 th:text="${post.id != null ? 'Edit Post' : 'Create Post'}" class="text-2xl font-bold mb-4"></h1>
+
+<form th:action="@{/posts}" th:object="${post}" method="post" class="bg-white p-6 rounded-lg shadow-md space-y-4">
+
+    <input type="hidden" th:if="${post.id != null}" th:field="*{id}" />
+
+    <div class="flex flex-col">
+        <label for="title" class="text-lg font-semibold mb-2">Title</label>
+        <input type="text" id="title" th:field="*{title}" class="border-2 border-gray-300 p-2 rounded" />
+    </div>
+
+    <div class="flex flex-col">
+        <label for="description" class="text-lg font-semibold mb-2">Description</label>
+        <textarea id="description" th:field="*{description}" class="border-2 border-gray-300 p-2 rounded"></textarea>
+    </div>
+
+    <div class="flex flex-col">
+        <label for="content" class="text-lg font-semibold mb-2">Content</label>
+        <textarea id="content" th:field="*{content}" class="border-2 border-gray-300 p-2 rounded"></textarea>
+    </div>
+
+    <div class="flex flex-col">
+        <label for="author" class="text-lg font-semibold mb-2">Author</label>
+        <textarea id="author" th:field="*{author}" class="border-2 border-gray-300 p-2 rounded"></textarea>
+    </div>
+
+    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Save</button>
+</form>
+
+</body>
+</html>
+
+olah manual response dari rest api yang bentuknya Map<String, Object>
+ke model single Post dengan ObjectMapper
+
+ menambahkan jackson-datatype-jsr310 pada pom.xml
+ agar com.spring.finshot.entity.Post["createdAt"]
+ Java 8 date/time type java.time.LocalDateTime support
+ serialize dan deserialize
+
+ ini error nya:
+ com.fasterxml.jackson.databind.exc.InvalidDefinitionException:
+ Java 8 date/time type java.time.LocalDateTime
+ not supported by default: add Module
+ "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" to enable handling
+ at [Source: UNKNOWN; byte offset: #UNKNOWN] (through reference chain: com.spring.finshot.entity.Post["createdAt"])
