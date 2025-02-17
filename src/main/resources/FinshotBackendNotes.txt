@@ -1,0 +1,97 @@
+- untuk agar lombok tidak error pada saat project dijalankan, maka pada pom.xml terbaru dari maven
+di annotationProcessorPaths ditambahkan
+<version>${lombok.version}</version>
+
+google: annotationProcessorPaths lombok intellij
+https://intellij-support.jetbrains.com/hc/en-us/community/posts/23064675521682-Lombok-not-workin-with-Intellij
+
+dari:
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <configuration>
+        <annotationProcessorPaths>
+            <path>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                // tambah disini
+            </path>
+        </annotationProcessorPaths>
+    </configuration>
+</plugin>
+
+ke:
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <configuration>
+        <annotationProcessorPaths>
+            <path>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version> // yang ditambahkan ini
+            </path>
+        </annotationProcessorPaths>
+    </configuration>
+</plugin>
+
+- kemungkinan tasknya:
+1. edit data tidak ke grab waktu edit
+2. delete tidak bekerja
+3. docker-compose dan dockerfile tidak ada untuk infra
+atau untuk menjalankan aplikasi secara docker / container
+
+
+buat simulasi dari ini, kan kamu punya 2 akun github
+coba aja.
+(ini dari README.md)
+1. Fork the repository
+2. Create a new branch
+3. Commit your changes
+4. Submit a pull request
+
+buat aplikasi personal finance tracker
+
+1fddb07 (HEAD -> main, origin/main, origin/HEAD) feat(post): add thymelead template
+5661a81 fix(post): fix error set createdAt, updatedAt and path variable id
+a4815e0 docs(readme): update documentation
+d11caca infra(docker): add docker compose
+fcf5044 feat(posts): add post resources
+3855158 feat(setup): Initialize setup projects
+ab0a42b feat(article): custom output response
+02dc89e feat(article): add resource api example article
+58a25e4 docs(readme): add readme markdown
+66da0e5 (feat: setup): initialize projects
+
+(feat: setup): initialize projects
+docs(readme): add readme markdown
+feat(article): add resource api example article
+feat(article): custom output response
+feat(setup): Initialize setup projects
+feat(posts): add post resources
+infra(docker): add docker compose
+docs(readme): update documentation
+fix(post): fix error set createdAt, updatedAt and path variable id
+feat(post): add thymelead template
+
+ini namanya git flow, coba cari tau
+apa aja yang masuk ke dalam git flow,
+
+nanti jangan lupa coba simulasi PR
+kan punya 2 akun github?
+
+jangan lupa simulasi
+
+
+- merubah username dan password postgresql database dengan
+user database sendiri pada application.properties
+- Optimize imports
+- replace with single class import
+
+
+
+
+
+
+
+
