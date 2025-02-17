@@ -1,5 +1,7 @@
 package com.spring.finshot.presenter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.spring.finshot.entity.Post;
 import com.spring.finshot.utils.ApiResponseHelper;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/posts")
@@ -39,7 +43,17 @@ public class PostControllerView {
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
+        /*
         Post post = restTemplate.getForObject(API_BASE_URL + "/" + id, Post.class);
+        model.addAttribute("post", post);
+         */
+        Map<String, Object> response = restTemplate.getForObject(API_BASE_URL + "/" + id, Map.class);
+        Post post = null;
+        if (response != null && response.containsKey("data")) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+            post = objectMapper.convertValue(response.get("data"), Post.class);
+        }
         model.addAttribute("post", post);
         return "post-form";
     }
