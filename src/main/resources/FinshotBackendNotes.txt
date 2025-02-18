@@ -304,3 +304,43 @@ ke model single Post dengan ObjectMapper
  not supported by default: add Module
  "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" to enable handling
  at [Source: UNKNOWN; byte offset: #UNKNOWN] (through reference chain: com.spring.finshot.entity.Post["createdAt"])
+
+
+ kira-kira email ini perlu dibalas gak ya?,
+ jika iya tolong balas ya,
+
+ Dear Riki Candra,
+
+ This is the FinShot recruitment team.
+
+ We would like to inform you of your scheduled virtual interview as part of the selection process for the training program.
+
+ Interview Details
+ Date: Wednesday, February 19
+ Time: 2:20 PM (Indonesia Time)
+ Link: meet.google.com/rtv-txwk-yhe
+ Please note that the schedule cannot be changed, and we kindly ask that you join the interview on time.
+ If you are unable to attend due to unavoidable circumstances, please inform us in advance.
+
+ Should you have any questions, feel free to reach out.
+
+ Best regards,
+ Carter
+ HR Team
+ FinShot
+
+ pada saat tekan tombol edit,
+
+nanti coba cari cari lagi project,
+- project fullstack thymeleaf restemplate + restapi spring boot,
+- project thymeleaf
+- cara kerja thymeleaf
+
+# font yang lumayan bagus untuk title tab dan font label ide
+font : Droid sans mono dotted // bagus untuk size 15
+
+1. buat yang helper khusus list dulu
+2. buat yang helper bisa list post dan single post
+
+ - belajar tailwind
+ - cara kerja thymeleaf

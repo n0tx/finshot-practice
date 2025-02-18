@@ -1,9 +1,9 @@
 package com.spring.finshot.presenter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.spring.finshot.entity.Post;
 import com.spring.finshot.utils.ApiResponseHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +21,9 @@ import java.util.Map;
 public class PostControllerView {
     private final String API_BASE_URL = "http://localhost:8081/api/v1/posts";
     private final RestTemplate restTemplate = new RestTemplate();
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     @GetMapping
     public String listPosts(Model model) {
@@ -48,10 +51,8 @@ public class PostControllerView {
         model.addAttribute("post", post);
          */
         Map<String, Object> response = restTemplate.getForObject(API_BASE_URL + "/" + id, Map.class);
-        Post post = null;
+        Post post = new Post();
         if (response != null && response.containsKey("data")) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.registerModule(new JavaTimeModule());
             post = objectMapper.convertValue(response.get("data"), Post.class);
         }
         model.addAttribute("post", post);
