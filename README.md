@@ -56,3 +56,13 @@ Finshot Backend Asessment
 ```
 MIT License
 ```
+
+## My Note
+- latihan buat 1 flow git / gitflow
+  bisa bugfix, feature
+- create branch
+- create pr
+- tech lead buat branch main, dev
+  approve pr
+- n0tx create branch feature, create branch bugfix
+- riki-candra approve, merge
