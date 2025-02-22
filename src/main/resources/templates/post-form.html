@@ -9,7 +9,7 @@
 
 <h1 th:text="${post.id != null ? 'Edit Post' : 'Create Post'}" class="text-2xl font-bold mb-4"></h1>
 
-<form th:action="@{/posts}" th:object="${post}" method="post" class="bg-white p-6 rounded-lg shadow-md space-y-4">
+<form th:action="@{${post.id != null} ? '/posts/' + ${post.id} : '/posts'}" th:object="${post}" method="post" class="bg-white p-6 rounded-lg shadow-md space-y-4">
 
     <input type="hidden" th:if="${post.id != null}" th:field="*{id}" />
 

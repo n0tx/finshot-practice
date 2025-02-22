@@ -373,3 +373,8 @@ ada contoh order, product di source github klo tidak salah // dicek aja
 
 # oiy coba docker
 jalanin aplikasi, akses database
+
+kenapa ke createPost, harusnya ke updatePost
+files:
+- PostControllerView.java
+- post-form.html

@@ -46,14 +46,12 @@ public class PostControllerView {
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        /*
-        Post post = restTemplate.getForObject(API_BASE_URL + "/" + id, Post.class);
-        model.addAttribute("post", post);
-         */
         Map<String, Object> response = restTemplate.getForObject(API_BASE_URL + "/" + id, Map.class);
-        Post post = new Post();
+        Post post = null;
         if (response != null && response.containsKey("data")) {
             post = objectMapper.convertValue(response.get("data"), Post.class);
+        } else {
+            post = new Post();
         }
         model.addAttribute("post", post);
         return "post-form";
