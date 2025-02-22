@@ -344,3 +344,32 @@ font : Droid sans mono dotted // bagus untuk size 15
 
  - belajar tailwind
  - cara kerja thymeleaf
+
+ jadi pake sb2admin
+ cuma tiru bisnis logic
+ pasang chartjs
+ login/logout
+ jwt, tymeleaf
+
+ # lanjutin ini latihan ngoding java,
+ https://chatgpt.com/c/67622f1a-98ac-8013-a190-d999b6d2c3f3 // sistem perpustakaan
+
+ # ini gratis, https://www.coursera.org/learn/mastering-spring-framework#modules
+ tanya - tanya aja di chatgpt atau deepseek, buat contoh tertentu
+ ambil dari judul - judul yang ingin kamu ketahui.
+
+ # belajar core spring dan sb2admin tymeleaf besok,
+ Insya Allah
+intinya biar tau konsepnya, biar klo kerja itu tidak terlalu binggung
+
+yang project uda jadi juga ada itu yang dari github, spring boot thymeleaf, di Downloads/Spring
+
+jangan sampe gagal lah ki nanti pelatihannya
+
+susah banget nyari kerja bre
+
+# buat order, product dari sini // http://localhost:8081/posts (finshot tailwindcss)
+ada contoh order, product di source github klo tidak salah // dicek aja
+
+# oiy coba docker
+jalanin aplikasi, akses database
