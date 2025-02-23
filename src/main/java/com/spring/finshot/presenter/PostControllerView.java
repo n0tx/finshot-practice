@@ -32,6 +32,15 @@ public class PostControllerView {
         return "post-list";
     }
 
+    @GetMapping("/published")
+    public String listPublishedPosts(Model model) {
+        String filter = "published";
+        ApiResponseHelper<Post> response = restTemplate.getForObject(API_BASE_URL + "/" + filter, ApiResponseHelper.class);
+        model.addAttribute("posts", response.getData());
+        model.addAttribute("filter", filter);
+        return "post-list";
+    }
+
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("post", new Post());

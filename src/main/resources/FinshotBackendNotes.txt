@@ -378,3 +378,17 @@ kenapa ke createPost, harusnya ke updatePost
 files:
 - PostControllerView.java
 - post-form.html
+
+saya sementara ini hanya menggunakan 2 saja yaitu default (All) dan published
+
+<select id="filter" class="border px-2 py-1" onchange="filterPosts()">
+    <option value="all" th:selected="${filter == 'all'}">All</option>
+    <option value="published" th:selected="${filter == 'published'}">Published</option>
+    <option value="unpublished" th:selected="${filter == 'unpublished'}">Unpublished</option>
+</select>
+
+bagaimana untuk yang "All" karena di backend tidak saya beri attribute filter, "all"
+
+<option value="all" th:selected="${filter == 'all'}">All</option>
+
+berarti th:selected="${filter == 'all'} null saja ya?

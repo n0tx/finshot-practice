@@ -11,8 +11,15 @@
     <!-- Page Title -->
     <h1 class="text-3xl font-bold mb-6 text-center">Posts</h1>
 
-    <!-- Create New Post Button -->
-    <div class="mb-4 text-right">
+    <!-- View Posts Filter And Create New Post Button -->
+    <div class="flex justify-between items-center mb-4">
+        <div>
+            <label for="filter" class="mr-2">Filter:</label>
+            <select id="filter" class="border px-2 py-1" onchange="filterPosts()">
+                <option value="all" th:selected="${filter == null or filter != 'published'}">All</option>
+                <option value="published" th:selected="${filter == 'published'}">Published</option>
+            </select>
+        </div>
         <a href="/posts/create"
            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow">
             Create New Post
@@ -96,6 +103,16 @@
     function closeModal() {
         const modal = document.getElementById('deleteModal');
         modal.classList.add('hidden');
+    }
+
+    function filterPosts() {
+        let url = "/posts";
+        const filter = document.getElementById("filter").value;
+
+        if (filter === "published") {
+            url = "/posts/published";
+        }
+        window.location.href = url;
     }
 </script>
 </body>
