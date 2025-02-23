@@ -44,7 +44,7 @@ public class PostServiceImpl implements PostService {
         post.setContent(payload.getContent());
         post.setAuthor(payload.getAuthor());
         post.setViews(0);
-        post.setPublished(false);
+        post.setPublished(payload.isPublished());
         post.setCreatedAt(LocalDateTime.now());
 
         return postRepository.save(post);
